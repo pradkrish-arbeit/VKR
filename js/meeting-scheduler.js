@@ -7,7 +7,7 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
   async function generateSchedule() {
     try {
       // Retrieve user data from Json Server
-      const response = await fetch("https://my-json-server.typicode.com/pradkrish-arbeit/VKR/users");
+      const response = await fetch("http://localhost:3000/users");
       const employees = await response.json();
 
       if (employees.length < 2) {
@@ -114,12 +114,12 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
 
       //Delete Previous generated schedule
 
-      fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/meetings_calender')
+      fetch('http://localhost:3000/meetings_calender')
         .then(response => response.json())
         .then(schedules => {
           // Iterate over each employee and delete them
           const deletePromises = schedules.map(schedule => {
-            return fetch(`https://my-json-server.typicode.com/pradkrish-arbeit/VKR/meetings_calender/${schedule.id}`, {
+            return fetch(`http://localhost:3000/meetings_calender/${schedule.id}`, {
               method: 'DELETE'
             });
           });
@@ -130,7 +130,7 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
         .then(() => {
           // Add new schedules
           meeting_schedule.forEach(schedule => {
-            fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/meetings_calender', {
+            fetch('http://localhost:3000/meetings_calender', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -165,12 +165,12 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
 
          //Delete Previous generated Individual meetings calender
 
-      fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender')
+      fetch('http://localhost:3000/individual_meetings_calender')
       .then(response => response.json())
       .then(schedules => {
         // Iterate over each employee and delete them
         const deletePromises = schedules.map(schedule => {
-          return fetch(`https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender/${schedule.id}`, {
+          return fetch(`http://localhost:3000/individual_meetings_calender/${schedule.id}`, {
             method: 'DELETE'
           });
         });
@@ -181,7 +181,7 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
       .then(() => {
         // Add new schedules
         individual_meetings_calender.forEach(schedule => {
-          fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender', {
+          fetch('http://localhost:3000/individual_meetings_calender', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

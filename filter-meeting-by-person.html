@@ -108,11 +108,11 @@
 
             function fetch_meeting_schedule(filter_person){
 
-                let apiUrl = 'https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender?_sort=seq&_order=asc';
+                let apiUrl = 'http://localhost:3000/individual_meetings_calender?_sort=seq&_order=asc';
 
                 // Construct the query string based on the filter value
                 if (filter_person) {
-                  apiUrl += `&person.firstName=${encodeURIComponent(filter_person)}&person.userName=${encodeURIComponent(filter_person)}`;
+                  apiUrl += `&person.firstName=${encodeURIComponent(filter_person)}`;
                 }
 
                 // Load users from local storage and display them

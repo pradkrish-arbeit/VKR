@@ -7,7 +7,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
      // Hash the input password
      const hashedPassword = CryptoJS.SHA256(password).toString();
 
-    fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/users')
+    fetch('http://localhost:3000/users')
     .then(response => response.json())
     .then(data => {
         const user = data.find(u => (u.email === username || u.userName === username) && u.password === hashedPassword);
