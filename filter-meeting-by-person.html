@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Match Display</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VKR-Virtual Kaffee Round</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+      <!-- Custom CSS -->
   <style>
     .match-container {
       border: 1px solid #ddd;
@@ -15,63 +15,180 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    .arrow-container {
+      position: relative;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .arrow-img {
+      max-width: 100%;
+    }
+    .match-date {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #fff;
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
     .user-card {
       background-color: #f8f9fa; /* Light gray background */
       border: 1px solid #ddd;
       padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-    .user-image {
-      text-align: center;
-    }
-    .user-image img {
-      max-width: 100px;
-      border-radius: 50%; /* Make the image round */
-    }
-    .user-details {
-      text-align: center;
+      align-self: center;
     }
   </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+           VKR - Virtual Kaffee Round
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home |</a>
+                </li>
 
-<div class="container">
-  <div class="row match-container">
-    <!-- User 1 Card -->
-    <div class="col-md-4 user-card">
-      <div class="user-image">
-        <img src="images/avatar.png" alt="User 1 Image" class="img-fluid">
-      </div>
-      <div class="user-details">
-        <h5>User 1 Name</h5>
-        <p>user1@example.com</p>
-        <p>Phone: +1234567890</p>
-      </div>
-    </div>
-    <!-- Arrow Container -->
-    <div class="col-md-4 arrow-container">
-        <p class="match-date">Date: Jan 1, 2024</p>
-      <img src="images/my-arrow.png" alt="Arrow Image" class="arrow-img img-fluid">
-     
-    </div>
-    <!-- User 2 Card -->
-    <div class="col-md-4 user-card">
-      <div class="user-image">
-        <img src="images/avatar.png" alt="User 2 Image" class="img-fluid">
-      </div>
-      <div class="user-details">
-        <h5>User 2 Name</h5>
-        <p>user2@example.com</p>
-        <p>Phone: +9876543210</p>
-      </div>
-    </div>
-  </div>
-</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
 
-<!-- Bootstrap JS and dependencies (optional if you need JS features) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a href="filter-meeting-by-date.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Filter By Date</a>
+                <a href="filter-meeting-by-person.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Filter By Person</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row border-bottom mb-4 pb-4 justify-content-center">
+                    <div class="input-group col-4">
+                        <input type="text" class="form-control" id="filter_person" placeholder="Search for meeting...">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary filter-button" type="button" id="filter-button">Fiter By Person</button>
+                            &nbsp;
+                            <button class="btn btn-outline-secondary reset-button" type="button" id="reset-button">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="user-list" class="mt-4"></div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    
+ 
+    <script src="js/auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            function fetch_meeting_schedule(filter_person){
+
+                let apiUrl = 'https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender?_sort=seq&_order=asc';
+
+                // Construct the query string based on the filter value
+                if (filter_person) {
+                  apiUrl += `&person.firstName=${encodeURIComponent(filter_person)}&person.userName=${encodeURIComponent(filter_person)}`;
+                }
+
+                // Load users from local storage and display them
+            fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+
+                const userList = $("#user-list");
+                userList.empty();
+
+                data.forEach((seq, index) => {
+                    seq.meeting_calender.forEach((contact)=>{
+
+                        const userRow = $(`
+                         <div class="row match-container" data-index="${index}">
+                                <!-- User 1 Details -->
+                                <div class="col-md-3 user-card">
+                                    <p><strong>Name:</strong> ${seq.person.firstName +' '+seq.person.lastName}</p>
+                                    <p><strong>Email:</strong>${seq.person.email}</p>
+                                    <p><strong>Phone Number:</strong>+91 7067864312</p>
+                                </div>
+                                <!-- User 1 Image -->
+                                <div class="col-md-1 text-center user-card">
+                                <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
+                                </div>
+                                <!-- Arrow Container -->
+                                <div class="col-md-4 arrow-container">
+                                <img src="images/side-arrow.png" alt="Arrow Image" class="arrow-img">
+                                <p class="match-date">${contact.meeting_date}</p>
+                                </div>
+                                <!-- User 2 Image -->
+                                <div class="col-md-1 text-center user-card">
+                                <img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">
+                                </div>
+                                <!-- User 2 Details -->
+                                <div class="col-md-3 user-card">
+                                   <p><strong>Name:</strong> ${contact.contact_person.firstName +' '+contact.contact_person.lastName}</p>
+                                    <p><strong>Email:</strong>${contact.contact_person.email}</p>
+                                    <p><strong>Phone Number:</strong>+91 7067864312</p>
+                                </div>
+                            </div>
+                    `);
+                    userList.append(userRow);
+
+                    })
+                   
+                });
+
+            });
+
+            };
+
+            fetch_meeting_schedule();
+
+            // Handle make admin button click
+            $('.make-admin').on('click', function() {
+                const userRow = $(this).closest('.product-row');
+                const index = userRow.data('index');
+                users[index].isAdmin = true;
+                localStorage.setItem('users', JSON.stringify(users));
+                location.reload(); // Reload the page to show the updated status
+            });
+
+              // Handle make admin button click
+            $('.filter-button').on('click', function() {
+               const filter_date = document.getElementById('filter_person').value;
+               fetch_meeting_schedule(filter_date);
+            });
+
+              // Handle make admin button click
+              $('.reset-button').on('click', function() {
+               document.getElementById('filter_person').value='';
+               fetch_meeting_schedule();
+            });
+
+        });
+    </script>
 </body>
 </html>

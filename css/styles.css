@@ -52,3 +52,6 @@ body {
     margin-left: 250px; /* Adjust based on the width of your sidebar */
     width: calc(100% - 250px); /* Adjust based on the width of your sidebar */
 }
+.black-bg-color{
+    background-color: black !important;
+}

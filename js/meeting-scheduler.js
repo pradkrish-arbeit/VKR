@@ -94,12 +94,23 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
         }
       }
 
-      //sort the meetings array by meeting_date
+      var individual_meetings_calender=[]
 
-      /*   for(let i =0 ; i <meetings.length;i++){
-           meetings[i].meeting_calender.sort((a,b)=>new Date(a.meeting_date) - new Date(b.meeting_date));
-         } */
-
+      for (let i = 0; i < employees.length; i++) {
+  
+          individual_calender={};
+          individual_calender.seq=i+1;;
+          individual_calender.person=employees[i];
+          individual_calender.meeting_calender=[];
+          for(let k=0;k<meetings.length;k++){
+              
+              if(meetings[k].team.includes(employees[i])){
+                  individual_calender.meeting_calender.push({"contact_person":meetings[k].team.filter(r=>r != employees[i])[0],"meeting_date":meetings[k].meeting_date});
+              }
+          }
+  
+          individual_meetings_calender.push(individual_calender);
+      }
 
       //Delete Previous generated schedule
 
@@ -131,6 +142,59 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
         .catch(err => {
           console.error('Error deleting employees:', err);
         });
+
+
+        var individual_meetings_calender=[]
+
+        for (let i = 0; i < employees.length; i++) {
+    
+            individual_calender={};
+            individual_calender.seq=i+1;;
+            individual_calender.person=employees[i];
+            individual_calender.meeting_calender=[];
+            for(let k=0;k<meetings.length;k++){
+                
+                if(meetings[k].team.includes(employees[i])){
+                    individual_calender.meeting_calender.push({"contact_person":meetings[k].team.filter(r=>r != employees[i])[0],"meeting_date":meetings[k].meeting_date});
+                }
+            }
+    
+            individual_meetings_calender.push(individual_calender);
+        }
+
+
+         //Delete Previous generated Individual meetings calender
+
+      fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender')
+      .then(response => response.json())
+      .then(schedules => {
+        // Iterate over each employee and delete them
+        const deletePromises = schedules.map(schedule => {
+          return fetch(`https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender/${schedule.id}`, {
+            method: 'DELETE'
+          });
+        });
+
+        // Wait for all delete requests to finish
+        return Promise.all(deletePromises);
+      })
+      .then(() => {
+        // Add new schedules
+        individual_meetings_calender.forEach(schedule => {
+          fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/individual_meetings_calender', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(schedule)
+          });
+        });
+      })
+      .catch(err => {
+        console.error('Error deleting employees:', err);
+      });
+
+
 
 
       alert('Schedule regenerated successfully!');

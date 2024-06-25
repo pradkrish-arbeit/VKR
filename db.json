@@ -39,62 +39,15 @@
   ],
   "meetings_calender": [
     {
-      "id": "61ec",
-      "seq": 2,
+      "id": "bd82",
+      "seq": 1,
       "meeting_date": "Wed Jun 26 2024",
       "teams": [
         [
           {
             "userName": "admin",
-            "firstName": "Scott",
-            "lastName": "Tiger",
-            "email": "admin@gmail.com",
-            "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
-            "isAdmin": true,
-            "id": "efd8"
-          },
-          {
-            "id": "57e3",
-            "firstName": "Sahil",
-            "lastName": "Gupta",
-            "userName": "sahil",
-            "email": "sahil@gmail.com",
-            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
-            "isAdmin": false
-          }
-        ],
-        [
-          {
-            "id": "57e2",
-            "firstName": "Sandeep",
-            "lastName": "Kumar",
-            "userName": "sandeep",
-            "email": "sandeep@gmail.com",
-            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
-            "isAdmin": false
-          },
-          {
-            "id": "57e4",
-            "firstName": "Santosh",
-            "lastName": "Rai",
-            "userName": "santosh",
-            "email": "santosh@gmail.com",
-            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
-            "isAdmin": false
-          }
-        ]
-      ]
-    },
-    {
-      "id": "e833",
-      "seq": 1,
-      "meeting_date": "Tue Jun 25 2024",
-      "teams": [
-        [
-          {
-            "userName": "admin",
-            "firstName": "Scott",
-            "lastName": "Tiger",
+            "firstName": "Admin",
+            "lastName": "",
             "email": "admin@gmail.com",
             "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
             "isAdmin": true,
@@ -133,15 +86,62 @@
       ]
     },
     {
-      "id": "4082",
-      "seq": 3,
+      "id": "7b4b",
+      "seq": 2,
       "meeting_date": "Thu Jun 27 2024",
       "teams": [
         [
           {
             "userName": "admin",
-            "firstName": "Scott",
-            "lastName": "Tiger",
+            "firstName": "Admin",
+            "lastName": "",
+            "email": "admin@gmail.com",
+            "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+            "isAdmin": true,
+            "id": "efd8"
+          },
+          {
+            "id": "57e3",
+            "firstName": "Sahil",
+            "lastName": "Gupta",
+            "userName": "sahil",
+            "email": "sahil@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          }
+        ],
+        [
+          {
+            "id": "57e2",
+            "firstName": "Sandeep",
+            "lastName": "Kumar",
+            "userName": "sandeep",
+            "email": "sandeep@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          {
+            "id": "57e4",
+            "firstName": "Santosh",
+            "lastName": "Rai",
+            "userName": "santosh",
+            "email": "santosh@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          }
+        ]
+      ]
+    },
+    {
+      "id": "0b3d",
+      "seq": 3,
+      "meeting_date": "Fri Jun 28 2024",
+      "teams": [
+        [
+          {
+            "userName": "admin",
+            "firstName": "Admin",
+            "lastName": "",
             "email": "admin@gmail.com",
             "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
             "isAdmin": true,
@@ -177,6 +177,212 @@
             "isAdmin": false
           }
         ]
+      ]
+    }
+  ],
+  "individual_meetings_calender": [
+    {
+      "id": "4445",
+      "seq": 1,
+      "person": {
+        "userName": "admin",
+        "firstName": "Admin",
+        "lastName": "",
+        "email": "admin@gmail.com",
+        "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+        "isAdmin": true,
+        "id": "efd8"
+      },
+      "meeting_calender": [
+        {
+          "contact_person": {
+            "id": "57e2",
+            "firstName": "Sandeep",
+            "lastName": "Kumar",
+            "userName": "sandeep",
+            "email": "sandeep@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Wed Jun 26 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e3",
+            "firstName": "Sahil",
+            "lastName": "Gupta",
+            "userName": "sahil",
+            "email": "sahil@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Thu Jun 27 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e4",
+            "firstName": "Santosh",
+            "lastName": "Rai",
+            "userName": "santosh",
+            "email": "santosh@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Fri Jun 28 2024"
+        }
+      ]
+    },
+    {
+      "id": "7ac1",
+      "seq": 3,
+      "person": {
+        "id": "57e3",
+        "firstName": "Sahil",
+        "lastName": "Gupta",
+        "userName": "sahil",
+        "email": "sahil@gmail.com",
+        "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+        "isAdmin": false
+      },
+      "meeting_calender": [
+        {
+          "contact_person": {
+            "userName": "admin",
+            "firstName": "Admin",
+            "lastName": "",
+            "email": "admin@gmail.com",
+            "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+            "isAdmin": true,
+            "id": "efd8"
+          },
+          "meeting_date": "Thu Jun 27 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e2",
+            "firstName": "Sandeep",
+            "lastName": "Kumar",
+            "userName": "sandeep",
+            "email": "sandeep@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Fri Jun 28 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e4",
+            "firstName": "Santosh",
+            "lastName": "Rai",
+            "userName": "santosh",
+            "email": "santosh@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Wed Jun 26 2024"
+        }
+      ]
+    },
+    {
+      "id": "5188",
+      "seq": 2,
+      "person": {
+        "id": "57e2",
+        "firstName": "Sandeep",
+        "lastName": "Kumar",
+        "userName": "sandeep",
+        "email": "sandeep@gmail.com",
+        "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+        "isAdmin": false
+      },
+      "meeting_calender": [
+        {
+          "contact_person": {
+            "userName": "admin",
+            "firstName": "Admin",
+            "lastName": "",
+            "email": "admin@gmail.com",
+            "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+            "isAdmin": true,
+            "id": "efd8"
+          },
+          "meeting_date": "Wed Jun 26 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e3",
+            "firstName": "Sahil",
+            "lastName": "Gupta",
+            "userName": "sahil",
+            "email": "sahil@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Fri Jun 28 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e4",
+            "firstName": "Santosh",
+            "lastName": "Rai",
+            "userName": "santosh",
+            "email": "santosh@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Thu Jun 27 2024"
+        }
+      ]
+    },
+    {
+      "id": "20cb",
+      "seq": 4,
+      "person": {
+        "id": "57e4",
+        "firstName": "Santosh",
+        "lastName": "Rai",
+        "userName": "santosh",
+        "email": "santosh@gmail.com",
+        "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+        "isAdmin": false
+      },
+      "meeting_calender": [
+        {
+          "contact_person": {
+            "userName": "admin",
+            "firstName": "Admin",
+            "lastName": "",
+            "email": "admin@gmail.com",
+            "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+            "isAdmin": true,
+            "id": "efd8"
+          },
+          "meeting_date": "Fri Jun 28 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e2",
+            "firstName": "Sandeep",
+            "lastName": "Kumar",
+            "userName": "sandeep",
+            "email": "sandeep@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Thu Jun 27 2024"
+        },
+        {
+          "contact_person": {
+            "id": "57e3",
+            "firstName": "Sahil",
+            "lastName": "Gupta",
+            "userName": "sahil",
+            "email": "sahil@gmail.com",
+            "password": "ac1a61a96d2859510591a9600be1dd7ae1b30f1e6bce7b273fab9dd34ffe03c9",
+            "isAdmin": false
+          },
+          "meeting_date": "Wed Jun 26 2024"
+        }
       ]
     }
   ]
