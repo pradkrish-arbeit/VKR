@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Match Display</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    .match-container {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .user-card {
+      background-color: #f8f9fa; /* Light gray background */
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .user-image {
+      text-align: center;
+    }
+    .user-image img {
+      max-width: 100px;
+      border-radius: 50%; /* Make the image round */
+    }
+    .user-details {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row match-container">
+    <!-- User 1 Card -->
+    <div class="col-md-4 user-card">
+      <div class="user-image">
+        <img src="images/avatar.png" alt="User 1 Image" class="img-fluid">
+      </div>
+      <div class="user-details">
+        <h5>User 1 Name</h5>
+        <p>user1@example.com</p>
+        <p>Phone: +1234567890</p>
+      </div>
+    </div>
+    <!-- Arrow Container -->
+    <div class="col-md-4 arrow-container">
+        <p class="match-date">Date: Jan 1, 2024</p>
+      <img src="images/my-arrow.png" alt="Arrow Image" class="arrow-img img-fluid">
+     
+    </div>
+    <!-- User 2 Card -->
+    <div class="col-md-4 user-card">
+      <div class="user-image">
+        <img src="images/avatar.png" alt="User 2 Image" class="img-fluid">
+      </div>
+      <div class="user-details">
+        <h5>User 2 Name</h5>
+        <p>user2@example.com</p>
+        <p>Phone: +9876543210</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and dependencies (optional if you need JS features) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>

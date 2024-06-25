@@ -1,0 +1,54 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    overflow-y: scroll;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it is above other elements */
+    background-color: #563d7c!important; /* Change this color to any other fancy color you like */
+}
+.navbar-brand,
+.nav-link {
+    color: #fff !important;
+}
+
+#wrapper {
+    margin-top: 70px; /* Adjust based on the height of your navbar */
+    display: flex;
+    width: 100%;
+}
+
+#sidebar-wrapper {
+    position: fixed;
+    top: 57px; /* Adjust based on the height of your navbar */
+    height: calc(100% - 70px); /* Full height minus the height of the navbar */
+    overflow-y: auto;
+    min-height: 100vh;
+    width: 250px;
+    background-color: lightgrey;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 1rem;
+    font-size: 1.5rem;
+    background-color: lightgrey;
+    border-bottom: 1px solid #6c757d;
+}
+
+#sidebar-wrapper .list-group-item {
+    padding: 1rem 1.5rem;
+    background-color: lightgrey;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: #d3d3d3;
+}
+
+#page-content-wrapper {
+    margin-left: 250px; /* Adjust based on the width of your sidebar */
+    width: calc(100% - 250px); /* Adjust based on the width of your sidebar */
+}

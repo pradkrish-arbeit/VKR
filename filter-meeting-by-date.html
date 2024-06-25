@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Match Display</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    .match-container {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .arrow-container {
+      position: relative;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .arrow-img {
+      max-width: 100%;
+    }
+    .match-date {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #fff;
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .user-card {
+      background-color: #f8f9fa; /* Light gray background */
+      border: 1px solid #ddd;
+      padding: 15px;
+      align-self: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row match-container">
+    <!-- User 1 Details -->
+    <div class="col-md-3 user-card">
+      <h5>User 1 Name</h5>
+      <p>Email: user1@example.com</p>
+      <p>Phone: +1234567890</p>
+    </div>
+    <!-- User 1 Image -->
+    <div class="col-md-1 text-center user-card">
+      <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
+    </div>
+    <!-- Arrow Container -->
+    <div class="col-md-4 arrow-container">
+      <img src="images/my-arrow.png" alt="Arrow Image" class="arrow-img">
+      <p class="match-date">Date: Jan 1, 2024</p>
+    </div>
+    <!-- User 2 Image -->
+    <div class="col-md-1 text-center user-card">
+      <img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">
+    </div>
+    <!-- User 2 Details -->
+    <div class="col-md-3 user-card">
+      <h5>User 2 Name</h5>
+      <p>Email: user2@example.com</p>
+      <p>Phone: +9876543210</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and dependencies (optional if you need JS features) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>
