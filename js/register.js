@@ -13,7 +13,7 @@ document.getElementById('register-form').addEventListener('submit', function (ev
   async function fetchAndPost() {
     try {
       // Retrieve user data from Json Server
-      const response = await fetch("http://my-json-server.typicode.com/pradkrish-arbeit/VKR/users");
+      const response = await fetch("https://my-json-server.typicode.com/pradkrish-arbeit/VKR/users");
       const users = await response.json();
 
       // Check if user already exists
@@ -25,7 +25,7 @@ document.getElementById('register-form').addEventListener('submit', function (ev
       // Add new user with hashed password
       const newUser = { firstName, lastName, userName, email, password: hashedPassword, isAdmin: false };
 
-      const response2 = await fetch('http://my-json-server.typicode.com/pradkrish-arbeit/VKR/users', {
+      const response2 = await fetch('https://my-json-server.typicode.com/pradkrish-arbeit/VKR/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
