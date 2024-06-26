@@ -8,11 +8,26 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
     try {
       // Retrieve user data from Json Server
       const response = await fetch(`${BASE_API_URL}/users`);
-      const employees = await response.json();
+      var employees = await response.json();
+
+      employees=employees.filter(user=>user.id!=='efd8');
 
       if (employees.length < 2) {
         alert('At least two employees are required to generate a schedule.');
         return;
+      }
+
+      if(employees.length%2!=0){
+          const No_Call= {
+            "userName": "No Call",
+            "firstName": "No Call",
+            "lastName": "No Call",
+            "email": "No Call",
+            "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4Nbbeeeee8a81f6f2ab448a918",
+            "isAdmin": false,
+            "id": "efd8999"
+          }
+          employees.push(No_Call);
       }
 
       meeting_schedule = [];

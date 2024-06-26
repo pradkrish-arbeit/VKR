@@ -145,7 +145,7 @@
                                 </div>
                                 <!-- User 2 Image -->
                                 <div class="col-md-1 text-center user-card">
-                                <img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">
+                                ${team[1].firstName == 'No Call' ? '<img src="images/no-call.png" alt="User 2 Image" class="img-fluid rounded-circle">' : '<img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">'}
                                 </div>
                                 <!-- User 2 Details -->
                                 <div class="col-md-3 user-card">

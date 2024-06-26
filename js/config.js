@@ -1,2 +1,2 @@
 // config.js
-const BASE_API_URL = 'https://vkr-json-server-api.onrender.com';
+const BASE_API_URL = 'http://localhost:5000';
