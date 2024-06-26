@@ -7,7 +7,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
      // Hash the input password
      const hashedPassword = CryptoJS.SHA256(password).toString();
 
-    fetch('https://vkr-json-server-api.onrender.com/users')
+    fetch(`${BASE_API_URL}/users`)
     .then(response => response.json())
     .then(data => {
         const user = data.find(u => (u.email === username || u.userName === username) && u.password === hashedPassword);

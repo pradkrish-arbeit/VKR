@@ -97,7 +97,7 @@
         <!-- /#page-content-wrapper -->
     </div>
     
- 
+    <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -108,7 +108,7 @@
 
             function fetch_meeting_schedule(filter_date){
 
-                let apiUrl = 'https://vkr-json-server-api.onrender.com/meetings_calender?_sort=seq&_order=asc';
+                let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=seq&_order=asc`;
 
                 // Construct the query string based on the filter value
                 if (filter_date) {
