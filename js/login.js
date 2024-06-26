@@ -19,7 +19,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
             localStorage.setItem('isAuthenticated', 'true');
             localStorage.setItem('loggedInUser', JSON.stringify(user));
             // Redirect to home page
-            window.location.href = 'index.html';
+            window.location.href = 'home.html';
         } else {
             alert('Invalid email or password.');
         }
