@@ -33,7 +33,7 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
       meeting_schedule = [];
 
 
-      for (var i = 0, j = 0; i < employees.length - 1; i++, j++) {
+      for (var i = 0, j = 0; i < employees.length - 1; i++, j=j+7) {
         schedule = {};
         schedule.seq = i + 1;
         var someDate = new Date(start_date);
