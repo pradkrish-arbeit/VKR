@@ -109,7 +109,7 @@
 
             function fetch_meeting_schedule(filter_person){
 
-                let apiUrl = `${BASE_API_URL}/individual_meetings_calender?_sort=seq&_order=asc`;
+                let apiUrl = `${BASE_API_URL}/individual_meetings_calender?_sort=seq,meeting_calender.meeting_date&_order=asc,asc`;
 
                 // Construct the query string based on the filter value
                 if (filter_person) {

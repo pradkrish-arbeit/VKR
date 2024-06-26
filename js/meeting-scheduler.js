@@ -178,7 +178,7 @@ document.getElementById('meeting-scheduler-form').addEventListener('submit', fun
         }
 
 
-         //Delete Previous generated Individual meetings calender
+      //Delete Previous generated Individual meetings calender
 
       fetch(`${BASE_API_URL}/individual_meetings_calender`)
       .then(response => response.json())
