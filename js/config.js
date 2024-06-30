@@ -1,5 +1,5 @@
 // config.js
-const BASE_API_URL = 'http://localhost:5000';
+const BASE_API_URL = 'https://vkr-json-server-api.onrender.com';
 
 // Create elements
 const user = JSON.parse(localStorage.getItem('loggedInUser'));
