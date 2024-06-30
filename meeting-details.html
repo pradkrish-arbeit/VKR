@@ -1,54 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VKR-Virtual Kaffee Round</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
-      <!-- Custom CSS -->
-  <style>
-    .match-container {
-      border: 1px solid #ddd;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .arrow-container {
-      position: relative;
-      text-align: center;
-      margin-top: 50px;
-    }
-    .arrow-img {
-      max-width: 100%;
-    }
-    .match-date {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #fff;
-      padding: 5px 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    .user-card {
-      background-color: #f8f9fa; /* Light gray background */
-      border: 1px solid #ddd;
-      padding: 15px;
-      align-self: center;
-    }
-  </style>
+    <!-- Custom CSS -->
+    <style>
+        .match-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow-container {
+            position: relative;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .arrow-img {
+            max-width: 100%;
+        }
+
+        .match-date {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .user-card {
+            background-color: #f8f9fa;
+            /* Light gray background */
+            border: 1px solid #ddd;
+            padding: 15px;
+            align-self: center;
+        }
+
+        .no-records {
+            border: 2px dashed #ff4f5a;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffe4e6;
+        }
+
+        select {
+            width: 30%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .select-label {
+            margin-top: 6px;
+            margin-right: 15px;
+        }
+
+        .btn-export {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-export:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-           VKR - Virtual Kaffee Round
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            BMM - Bier mit Mir </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -69,11 +108,22 @@
     </nav>
 
     <div class="d-flex" id="wrapper">
+
         <!-- Sidebar -->
         <div class="bg-dark border-right" id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-                <a href="filter-meeting-by-date.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Filter By Date</a>
-                <a href="filter-meeting-by-person.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Filter By Person</a>
+                <a href="index.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Bier
+                    Buddy List</a>
+                <a href="Import-Users.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Import
+                    Bier Folks</a>
+                <a href="meeting-scheduler.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Scheduler
+                    Algorithm</a>
+                <a href="meeting-details.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Meeting
+                    Details</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -82,93 +132,284 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row border-bottom mb-4 pb-4 justify-content-center">
-                    <div class="input-group col-4">
-                        <input type="date" class="form-control" id="filter_date" placeholder="Search for meeting...">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary filter-button" type="button" id="filter-button">Fiter By Date</button>
-                            &nbsp;
-                            <button class="btn btn-outline-secondary reset-button" type="button" id="reset-button">Reset</button>
-                        </div>
+                    <div class="input-group col-6">
+                        <label for="userSelect" class="select-label">Select a user:</label>
+                        <select id="userSelect" class="filter-name">
+                            <option value="">Filter By Name</option>
+                        </select>
+                        &nbsp;&nbsp;
+                        <input type="date" onclick="this.showPicker();" class="form-control filter-date"
+                            id="filter_date" placeholder="Search for meeting..." />
+                    </div>
+                    <div class="input-group-append">
+                        <!--button class="btn btn-outline-secondary filter-button" type="button" id="filter-button">Fiter By Date</button-->
+                        &nbsp; &nbsp;
+                        <button class="btn btn-outline-secondary reset-button mr-3" type="button"
+                            id="reset-button">Reset</button>
+                        <button id="export-btn" class="btn btn-export" data-toggle="modal" data-target="#exportModal">
+                            <i class="fas fa-file-excel"></i> Export to Excel</button>
                     </div>
                 </div>
-                <div id="user-list" class="mt-4"></div>
+            </div>
+            <div id="user-list" class="mt-4"></div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+    <!-- Export Modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exportModalLabel">Export Options</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="exportForm" style="margin-left:25px">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="exportOption" id="singleSheetOption"
+                                value="single" checked>
+                            <label class="form-check-label" for="singleSheetOption">
+                                Single Sheet
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="exportOption" id="multiSheetOption"
+                                value="multi">
+                            <label class="form-check-label" for="multiSheetOption">
+                                Multi Sheet
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!--button type="button" class="btn btn-primary" id="confirmExportBtn">Export</button-->
+                    <button id="export-btn-by-person"
+                        class="btn btn-export mr-3 export-button-by-person-single-sheet"><i
+                            class="fas fa-file-excel"></i> Export (By Person)</button>
+                    <button id="export-btn-by-date" class="btn btn-export export-button-by-date mr-3"><i
+                            class="fas fa-file-excel"></i> Export (By Date)</button>
+                </div>
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
     </div>
-    
+    <!-- Export Modal End-->
+
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            function fetch_meeting_schedule(filter_date){
+            // Load users from local storage and display them
+            /*$('#userSelect').select2({
+               placeholder: 'Select a user'
+           });*/
 
-                let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=seq&_order=asc`;
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            const isAdmin = localStorage.getItem('isAdmin');
 
-                // Construct the query string based on the filter value
-                if (filter_date) {
-                apiUrl += `&meeting_date=${encodeURIComponent(new Date(filter_date).toDateString())}`;
+            // If  not an admin, redirect to the home page
+            if (isAuthenticated && isAdmin !== 'true') {
+                window.location.href = 'home.html';
+            }
+
+            function dateFormatter(given_date) {
+
+                // Create a Date object
+                const date = new Date(given_date);
+
+                // Extract year, month, and day from the Date object
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+                const day = String(date.getDate()).padStart(2, '0');
+
+                // Construct ISO 8601 formatted string in UTC timezone
+                const isoString = `${year}-${month}-${day}T00:00:00.000Z`;
+
+                return isoString;
+            }
+
+            async function geteUseSelectLov() {
+                try {
+                    const response = await fetch(`${BASE_API_URL}/users`);
+                    const data = await response.json();
+                    const userSelect = $('#userSelect');
+                    const filteredData = data.filter(user => user.id !== 'efd8');
+
+                    filteredData.forEach(user => {
+                        const option = new Option(user.firstName, user.firstName, false, false);
+                        userSelect.append(option);
+                    });
+
+                    // userSelect.trigger('change');
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Handle errors appropriately
                 }
+            }
 
-                // Load users from local storage and display them
-            fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
 
-                const userList = $("#user-list");
-                userList.empty();
+            async function fetch_meeting_schedule_By_Name(filter_person, filter_date) {
+                try {
+                    let apiUrl = `${BASE_API_URL}/individual_meetings_calender`;
 
-                data.forEach((seq, index) => {
-                    seq.teams.forEach((team)=>{
+                    // Construct the query string based on the filter value
+                    if (filter_person) {
+                        apiUrl += `?person.firstName=${encodeURIComponent(filter_person)}`;
+                    }
 
-                        const userRow = $(`
-                         <div class="row match-container" data-index="${index}">
-                                <!-- User 1 Details -->
-                                <div class="col-md-3 user-card">
-                                    <p><strong>Name:</strong> ${team[0].firstName +' '+team[0].lastName}</p>
-                                    <!--p><strong>Email:</strong>${team[0].email}</p>
-                                    <p><strong>Phone Number:</strong>+91 7067864312</p--->
-                                </div>
-                                <!-- User 1 Image -->
-                                <div class="col-md-1 text-center user-card">
-                                <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
-                                </div>
-                                <!-- Arrow Container -->
-                                <div class="col-md-4 arrow-container">
-                                <img src="images/my-arrow.png" alt="Arrow Image" class="arrow-img">
-                                <p class="match-date">${seq.meeting_date}</p>
-                                </div>
-                                <!-- User 2 Image -->
-                                <div class="col-md-1 text-center user-card">
-                                ${team[1].firstName == 'No Call' ? '<img src="images/no-call.png" alt="User 2 Image" class="img-fluid rounded-circle">' : '<img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">'}
-                                </div>
-                                <!-- User 2 Details -->
-                                <div class="col-md-3 user-card">
-                                   <p><strong>Name:</strong> ${team[1].firstName +' '+team[1].lastName}</p>
-                                    <!--p><strong>Email:</strong>${team[1].email}</p>
-                                    <p><strong>Phone Number:</strong>+91 7067864312</p-->
-                                </div>
+                    // Fetch meeting schedule data
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    const userList = $("#user-list");
+                    userList.empty();
+
+                    if (data.length === 0) {
+                        const displayMessage = `
+                            <div id="noRecords" class="no-records text-center">
+                                <p>No Record Found for the Given Date</p>
                             </div>
-                    `);
-                    userList.append(userRow);
+                        `;
+                        userList.append(displayMessage);
+                        return;
+                    }
 
-                    })
-                   
-                });
+                    data.forEach(event => {
+                        event.meeting_calender.sort((a, b) => {
+                            return new Date(a.meeting_date) - new Date(b.meeting_date);
+                        });
+                    });
 
-            });
+                    data.forEach((seq, index) => {
+                        seq.meeting_calender.forEach((contact) => {
+                            const userRow = $(`
+                                <div class="row match-container" data-index="${index}">
+                                    <!-- User 1 Details -->
+                                    <div class="col-md-3 user-card">
+                                        <p><strong>Name:</strong> ${seq.person.firstName + ' ' + seq.person.lastName}</p>
+                                    </div>
+                                    <!-- User 1 Image -->
+                                    <div class="col-md-1 text-center user-card">
+                                        <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
+                                    </div>
+                                    <!-- Arrow Container -->
+                                    <div class="col-md-4 arrow-container">
+                                        <img src="images/side-arrow.png" alt="Arrow Image" class="arrow-img">
+                                        <p class="match-date">${new Date(contact.meeting_date).toDateString()}</p>
+                                    </div>
+                                    <!-- User 2 Image -->
+                                    <div class="col-md-1 text-center user-card">
+                                         ${contact.contact_person.firstName === 'No Call' ? '<img src="images/no-call.png" alt="User 2 Image" class="img-fluid rounded-circle">' : '<img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">'}
+                                    </div>
+                                    <!-- User 2 Details -->
+                                    <div class="col-md-3 user-card">
+                                        <p><strong>Name:</strong> ${contact.contact_person.firstName + ' ' + contact.contact_person.lastName}</p>
+                                    </div>
+                                </div>
+                            `);
 
-            };
+                            if (filter_date) {
+                                if (contact.meeting_date == `${filter_date}T00:00:00.000Z`) {
+                                    userList.append(userRow);
+                                }
+                            } else {
+                                userList.append(userRow);
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Handle errors appropriately
+                }
+            }
 
+            async function fetch_meeting_schedule(filter_date, filter_person) {
+                try {
+                    let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=meeting_date&_order=asc`;
+
+                    // Construct the query string based on the filter value
+                    if (filter_date) {
+                        apiUrl += `&meeting_date=${encodeURIComponent(dateFormatter(new Date(filter_date)))}`;
+                    }
+
+                    // Fetch meeting schedule data
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    const userList = $("#user-list");
+                    userList.empty();
+
+                    if (data.length === 0) {
+                        const displayMessage = `
+                        <div id="noRecords" class="no-records text-center">
+                            <p>No Record Found for the Given Date</p>
+                        </div>
+                    `;
+                        userList.append(displayMessage);
+                    } else {
+                        data.forEach((seq, index) => {
+                            seq.teams.forEach((team) => {
+                                const userRow = $(`
+                                <div class="row match-container" data-index="${index}">
+                                    <!-- User 1 Details -->
+                                    <div class="col-md-3 user-card">
+                                        <p><strong>Name:</strong> ${team[0].firstName + ' ' + team[0].lastName}</p>
+                                    </div>
+                                    <!-- User 1 Image -->
+                                    <div class="col-md-1 text-center user-card">
+                                        <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
+                                    </div>
+                                    <!-- Arrow Container -->
+                                    <div class="col-md-4 arrow-container">
+                                        <img src="images/my-arrow.png" alt="Arrow Image" class="arrow-img">
+                                        <p class="match-date">${new Date(seq.meeting_date).toDateString()}</p>
+                                    </div>
+                                    <!-- User 2 Image -->
+                                    <div class="col-md-1 text-center user-card">
+                                        ${team[1].firstName === 'No Call' ? '<img src="images/no-call.png" alt="User 2 Image" class="img-fluid rounded-circle">' : '<img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">'}
+                                    </div>
+                                    <!-- User 2 Details -->
+                                    <div class="col-md-3 user-card">
+                                        <p><strong>Name:</strong> ${team[1].firstName + ' ' + team[1].lastName}</p>
+                                    </div>
+                                </div>
+                            `);
+
+                                if (filter_person) {
+                                    if (team[0].firstName === filter_person || team[1].firstName === filter_person) {
+                                        userList.append(userRow);
+                                    }
+                                } else {
+                                    userList.append(userRow);
+                                }
+                            });
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Handle errors appropriately
+                }
+            }
+
+
+
+            geteUseSelectLov()
             fetch_meeting_schedule();
 
             // Handle make admin button click
-            $('.make-admin').on('click', function() {
+            $('.make-admin').on('click', function () {
                 const userRow = $(this).closest('.product-row');
                 const index = userRow.data('index');
                 users[index].isAdmin = true;
@@ -176,19 +417,543 @@
                 location.reload(); // Reload the page to show the updated status
             });
 
-              // Handle make admin button click
-            $('.filter-button').on('click', function() {
-               const filter_date = document.getElementById('filter_date').value;
-               fetch_meeting_schedule(filter_date);
+            // Handle make admin button click
+            $('.filter-date').on('change', function () {
+                const filter_date = document.getElementById('filter_date').value;
+                const userSelect = document.getElementById('userSelect').value;
+                if (userSelect) {
+                    fetch_meeting_schedule(filter_date, userSelect);
+                } else {
+                    fetch_meeting_schedule(filter_date);
+                }
+
             });
 
-              // Handle make admin button click
-              $('.reset-button').on('click', function() {
-               document.getElementById('filter_date').value='';
-               fetch_meeting_schedule();
+            // Handle make admin button click
+            $('.filter-name').on('change', function () {
+                const filter_date = document.getElementById('filter_date').value;
+                const userSelect = document.getElementById('userSelect').value;
+                if (filter_date) {
+                    fetch_meeting_schedule_By_Name(userSelect, filter_date);
+                } else {
+                    fetch_meeting_schedule_By_Name(userSelect);
+                }
+
+            });
+
+            // Handle make admin button click
+            $('.reset-button').on('click', function () {
+                document.getElementById('filter_date').value = '';
+                document.getElementById('userSelect').value = '';
+                fetch_meeting_schedule();
+            });
+
+            // Export to Excel function
+            async function exportbutton_by_person() {
+                debugger;
+
+                // Create a new workbook and a worksheet
+                const wb = XLSX.utils.book_new();
+
+                let apiUrl = `${BASE_API_URL}/individual_meetings_calender`;
+                // Fetch meeting schedule data
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                data.forEach(event => {
+                    event.meeting_calender.sort((a, b) => {
+                        return new Date(a.meeting_date) - new Date(b.meeting_date);
+                    });
+                });
+
+                data.forEach(person => {
+                    // Header data
+                    /*  const headerData = [
+                          { A: `ID: ${person.id}` },
+                          { A: `Sequence: ${person.seq}` },
+                          { A: `First Name: ${person.person.firstName}` },
+                          { A: '' },  // Empty row
+                          { A: '' },  // Empty row
+                          { A: 'Contact Person' },  // Header for Contact Person
+                      ];*/
+
+                    const headerData = [
+                        { A: `Name : ${person.person.firstName + ' ' + person.person.lastName}`, B: '' },
+                        { A: 'Contact Person', B: 'Meeting Date' },  // Header for Contact Person
+                    ];
+
+                    // Convert header data to worksheet
+                    const headerWs = XLSX.utils.json_to_sheet(headerData, { skipHeader: true });
+
+                    // Apply styles to specific headers
+                    ['A1', 'A2', 'B2'].forEach(cell => {
+                        if (cell == 'A1') {
+                            headerWs[cell].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "000000" } },// Green background color
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+                        }
+
+                        if (cell == 'B2' || cell == 'A2') {
+                            headerWs[cell].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "28a745" } }, // Green background color
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+                        }
+
+                    });
+
+
+
+                    // Details data
+                    const detailsData = person.meeting_calender.map(meeting => ({
+                        'Contact Person': meeting.contact_person.firstName,
+                        'Meeting Date': new Date(meeting.meeting_date)
+                    }));
+
+                    // Convert details data to worksheet
+                    const detailsWs = XLSX.utils.json_to_sheet(detailsData);
+
+                    // Merge header and details
+                    const finalWs = XLSX.utils.sheet_add_json(headerWs, detailsData, { origin: -1, skipHeader: true });
+
+                    // Apply styles to the header
+                    /* finalWs['A1'].s = {
+                         font: { bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                         fill: { fgColor: { rgb: "000000" } } // Green background color
+                     };*/
+
+                    /*  finalWs['A2'].s =  {
+                                                  font: { bold: true, size: 14, color: { rgb: "FFFFFF" } },
+                                                  fill: { fgColor: { rgb: "000000" } } // Green background color
+                                              }
+                      finalWs['A3'].s =  {
+                                                  font: { bold: true, size: 14, color: { rgb: "FFFFFF" } },
+                                                  fill: { fgColor: { rgb: "000000" } } // Green background color
+                                              }*/
+
+                    // Set column widths
+                    finalWs['!cols'] = [
+                        { wch: 30 },  // Width of first column
+                        { wch: 20 },  // Width of second column
+                        { wch: 10 }   // Width of third column
+                    ];
+
+                    // Add the worksheet to the workbook
+                    XLSX.utils.book_append_sheet(wb, finalWs, `${person.person.firstName + ' - ' + person.id}`);
+                });
+
+                // Generate Excel file and trigger download
+                XLSX.writeFile(wb, "meeting_schedule_by_person.xlsx");
+
+            };
+
+            // Export to Excel function
+            async function exportbutton_by_person_single_sheet() {
+                debugger;
+
+                // Create a new workbook and a worksheet
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.aoa_to_sheet([]);
+
+                let apiUrl = `${BASE_API_URL}/individual_meetings_calender`;
+                // Fetch meeting schedule data
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                data.forEach(event => {
+                    event.meeting_calender.sort((a, b) => {
+                        return new Date(a.meeting_date) - new Date(b.meeting_date);
+                    });
+                });
+
+                let startRow = 0;
+
+                data.forEach(person => {
+                    // Header data
+                    const headerData = [
+                        [`Name : ${person.person.firstName + ' ' + person.person.lastName}`, ''],
+                        ['Contact Person', 'Meeting Date'],  // Header for Contact Person
+                    ];
+
+                    // Convert header data to worksheet rows
+                    XLSX.utils.sheet_add_aoa(ws, headerData, { origin: startRow });
+
+                    // Apply styles to specific headers
+                    const headerCells = ['A1', 'A2', 'B2'];
+                    headerCells.forEach(cell => {
+
+                        const cellAddress = XLSX.utils.encode_cell({ r: startRow + parseInt(cell.substring(1)) - 1, c: cell.charCodeAt(0) - 65 });
+                        if (!ws[cellAddress]) {
+                            ws[cellAddress] = { v: '' }; // Initialize the cell if it's not defined
+                        }
+
+                        if (cell == 'A1') {
+
+                            ws[cellAddress].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "000000" } },
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+
+                        } else if (cell == 'A2' || cell == 'B2') {
+
+                            ws[cellAddress].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "28a745" } },
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+
+                        }
+
+                    });
+
+                    // Details data
+                    const detailsData = person.meeting_calender.map(meeting => [
+                        meeting.contact_person.firstName,
+                        new Date(meeting.meeting_date).toLocaleDateString()
+                    ]);
+
+                    // Convert details data to worksheet rows
+                    XLSX.utils.sheet_add_aoa(ws, detailsData, { origin: startRow + 2 });
+
+                    // Update startRow for the next person's data, including a 3-row gap
+                    startRow += detailsData.length + 7; // 4 for header and 3 for gap
+                });
+
+                // Set column widths
+                ws['!cols'] = [
+                    { wch: 30 },  // Width of first column
+                    { wch: 20 }   // Width of second column
+                ];
+
+                // Add the worksheet to the workbook
+                XLSX.utils.book_append_sheet(wb, ws, "All Data");
+
+                // Generate Excel file and trigger download
+                XLSX.writeFile(wb, "meeting_schedule_by_person.xlsx");
+            };
+
+
+
+         /*   // Export to Excel function
+            async function exportbutton_by_date_single_sheet() {
+                debugger;
+
+                // Create a new workbook and a worksheet
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.aoa_to_sheet([]);
+
+                let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=meeting_date&_order=asc`;
+                // Fetch meeting schedule data
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                let startRow = 0;
+
+                data.forEach(calender => {
+                    // Header data
+                    const headerData = [
+                        [`Date : ${new Date(calender.meeting_date).toDateString()}`, ''],
+                        ['First Bier Folks', 'Second Bier Folks'],  // Header for Contact Person
+                    ];
+
+                    // Convert header data to worksheet rows
+                    XLSX.utils.sheet_add_aoa(ws, headerData, { origin: startRow });
+
+                    // Apply styles to specific headers
+                    const headerCells = ['A1', 'A2', 'B2'];
+                    headerCells.forEach(cell => {
+
+                        const cellAddress = XLSX.utils.encode_cell({ r: startRow + parseInt(cell.substring(1)) - 1, c: cell.charCodeAt(0) - 65 });
+                        if (!ws[cellAddress]) {
+                            ws[cellAddress] = { v: '' }; // Initialize the cell if it's not defined
+                        }
+
+                        if (cell == 'A1') {
+
+                            ws[cellAddress].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "000000" } },
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+
+                        } else if (cell == 'A2' || cell == 'B2') {
+
+                            ws[cellAddress].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "28a745" } },
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+
+                        }
+
+                    });
+
+                    // Details data
+                    const detailsData = calender.teams.map(team => [
+                        team[0].firstName + ' ' + team[0].lastName,
+                        team[1].firstName + ' ' + team[1].lastName
+                    ]);
+                    // Convert details data to worksheet rows
+                    XLSX.utils.sheet_add_aoa(ws, detailsData, { origin: startRow + 2 });
+
+                    // Update startRow for the next person's data, including a 3-row gap
+                    startRow += detailsData.length + 7; // 4 for header and 3 for gap
+                });
+
+                // Set column widths
+                ws['!cols'] = [
+                    { wch: 30 },  // Width of first column
+                    { wch: 20 }   // Width of second column
+                ];
+
+                // Add the worksheet to the workbook
+                XLSX.utils.book_append_sheet(wb, ws, "All Data");
+
+                // Generate Excel file and trigger download
+                XLSX.writeFile(wb, "meeting_schedule_by_date.xlsx");
+            };*/
+
+
+            // Export to Excel function for single sheet
+            async function exportbutton_by_date_single_sheet() {
+                debugger;
+
+                // Create a new workbook and a worksheet
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.aoa_to_sheet([]);
+
+                let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=meeting_date&_order=asc`;
+                // Fetch meeting schedule data
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                let startRow = 0;
+
+                data.forEach(calender => {
+                    const headerData = [
+                        [`Date: ${new Date(calender.meeting_date).toDateString()}`, ''],
+                        ['First Bier Folks', 'Second Bier Folks'] // Header for Contact Person
+                    ];
+
+                    // Append header data
+                    XLSX.utils.sheet_add_aoa(ws, headerData, { origin: startRow });
+
+                    // Apply styles to specific headers
+                    const headerCells = ['A1', 'A2', 'B2'];
+                    headerCells.forEach(cell => {
+
+                        const cellAddress = XLSX.utils.encode_cell({ r: startRow + parseInt(cell.substring(1)) - 1, c: cell.charCodeAt(0) - 65 });
+                        if (!ws[cellAddress]) {
+                            ws[cellAddress] = { v: '' }; // Initialize the cell if it's not defined
+                        }
+
+                        if (cell == 'A1') {
+
+                            ws[cellAddress].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "000000" } },
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+
+                        } else if (cell == 'A2' || cell == 'B2') {
+
+                            ws[cellAddress].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "28a745" } },
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+
+                        }
+
+                    });
+
+
+                    // Details data
+                    const detailsData = calender.teams.map(team => [
+                        team[0].firstName + ' ' + team[0].lastName,
+                        team[1].firstName + ' ' + team[1].lastName
+                    ]);
+
+                     // Convert details data to worksheet rows
+                     XLSX.utils.sheet_add_aoa(ws, detailsData, { origin: startRow + 2 });
+
+                    // Update startRow for the next person's data, including a 3-row gap
+                    startRow += detailsData.length + 7; // 4 for header and 3 for gap
+
+                });
+
+                 // Set column widths
+                 ws['!cols'] = [
+                    { wch: 30 },  // Width of first column
+                    { wch: 30 }   // Width of second column
+                ];
+
+                // Add the worksheet to the workbook
+                XLSX.utils.book_append_sheet(wb, ws, "All Meeting Schedule");
+
+                // Generate Excel file and trigger download
+                XLSX.writeFile(wb, "meeting_schedule_by_person.xlsx");
+            };
+
+            // Handle the export based on the selected option
+            /*document.getElementById('confirmExportBtn').addEventListener('click', function () {
+                const selectedOption = document.querySelector('input[name="exportOption"]:checked').value;
+                if (selectedOption === "single") {
+                    exportbutton_by_date();
+                } else if (selectedOption === "multi") {
+                    // Implement the multi-sheet export function if needed
+                    // exportbutton_by_person();
+                }
+                $('#exportModal').modal('hide');
+            });*/
+
+            // Function to show export modal on export button click
+            document.getElementById('export-btn').addEventListener('click', function () {
+                $('#exportModal').modal('show');
+            });
+
+
+
+
+
+            // Export to Excel function
+            async function exportbutton_by_date() {
+                debugger;
+
+                // Create a new workbook and a worksheet
+                const wb = XLSX.utils.book_new();
+
+                let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=meeting_date&_order=asc`;
+                // Fetch meeting schedule data
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                data.forEach(calender => {
+                    // Header data
+                    /*  const headerData = [
+                          { A: `ID: ${person.id}` },
+                          { A: `Sequence: ${person.seq}` },
+                          { A: `First Name: ${person.person.firstName}` },
+                          { A: '' },  // Empty row
+                          { A: '' },  // Empty row
+                          { A: 'Contact Person' },  // Header for Contact Person
+                      ];*/
+
+                    const headerData = [
+                        { A: `Date : ${new Date(calender.meeting_date).toDateString()}`, B: '' },
+                        { A: '', B: '' },  // Empty row
+                        { A: '', B: '' },  // Empty row
+                        { A: 'First Bier Folks', B: 'Second Bier Folks' },  // Header for Contact Person
+                    ];
+
+                    // Convert header data to worksheet
+                    const headerWs = XLSX.utils.json_to_sheet(headerData, { skipHeader: true });
+
+                    // Apply styles to specific headers
+                    ['A1', 'A2', 'A3', 'A4'].forEach(cell => {
+                        if (cell == 'A1' || cell == 'A4') {
+                            headerWs[cell].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "007BFF" } },// Green background color
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+                        }
+
+                    });
+
+                    // Apply styles to specific headers
+                    ['B1', 'B2', 'B3', 'B4'].forEach(cell => {
+                        if (cell == 'B4') {
+                            headerWs[cell].s = {
+                                font: { name: "Courier", bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+                                fill: { fgColor: { rgb: "007BFF" } }, // Green background color
+                                alignment: { horizontal: "center", vertical: "center" }
+                            };
+                        }
+
+                    });
+
+                    // Details data
+                    const detailsData = calender.teams.map(team => ({
+                        'First Bier Folks': team[0].firstName + ' ' + team[0].lastName,
+                        'Second Bier Folks': team[1].firstName + ' ' + team[1].lastName
+                    }));
+
+                    // Convert details data to worksheet
+                    const detailsWs = XLSX.utils.json_to_sheet(detailsData);
+
+                    // Merge header and details
+                    const finalWs = XLSX.utils.sheet_add_json(headerWs, detailsData, { origin: -1, skipHeader: true });
+
+                    // Apply styles to the header
+                    finalWs['A1'].s = {
+                        font: { bold: true, size: 18, color: { rgb: "FFFFFF" } },
+                        fill: { fgColor: { rgb: "000000" } } // Green background color
+                    };
+                    /*  finalWs['A2'].s =  {
+                                                  font: { bold: true, size: 14, color: { rgb: "FFFFFF" } },
+                                                  fill: { fgColor: { rgb: "000000" } } // Green background color
+                                              }
+                      finalWs['A3'].s =  {
+                                                  font: { bold: true, size: 14, color: { rgb: "FFFFFF" } },
+                                                  fill: { fgColor: { rgb: "000000" } } // Green background color
+                                              }*/
+
+                    // Set column widths
+                    finalWs['!cols'] = [
+                        { wch: 30 },  // Width of first column
+                        { wch: 30 },  // Width of second column
+                        { wch: 10 }   // Width of third column
+                    ];
+
+                    // Add the worksheet to the workbook
+                    XLSX.utils.book_append_sheet(wb, finalWs, `${new Date(calender.meeting_date).toDateString()}`);
+                });
+
+                // Generate Excel file and trigger download
+                XLSX.writeFile(wb, "meeting_schedule_by_date.xlsx");
+
+            };
+
+            // Handle the export based on the selected option
+            /*  document.getElementById('confirmExportBtn').addEventListener('click', function() {
+                  const selectedOption = document.querySelector('input[name="exportOption"]:checked').value;
+                  if (selectedOption === "single") {
+                      alert('Single sheet selected');
+                  } else if (selectedOption === "multi") {
+                      alert('Multi sheet selected');
+                  }
+                  $('#exportModal').modal('hide');
+              });*/
+
+            // Handle the export based on the selected option
+            document.getElementById('export-btn-by-person').addEventListener('click', function () {
+                const selectedOption = document.querySelector('input[name="exportOption"]:checked').value;
+                if (selectedOption === "single") {
+                    exportbutton_by_person_single_sheet();
+                } else if (selectedOption === "multi") {
+                    exportbutton_by_person();
+                }
+                $('#exportModal').modal('hide');
+            });
+
+            // Handle the export based on the selected option
+            document.getElementById('export-btn-by-date').addEventListener('click', function () {
+                const selectedOption = document.querySelector('input[name="exportOption"]:checked').value;
+                if (selectedOption === "single") {
+                    exportbutton_by_date_single_sheet();
+                } else if (selectedOption === "multi") {
+                    exportbutton_by_date();
+                }
+                $('#exportModal').modal('hide');
             });
 
         });
     </script>
 </body>
+
 </html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMM   -   Bier mit Mir</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .match-container {
+          border: 1px solid #ddd;
+          padding: 20px;
+          margin-bottom: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .arrow-container {
+          position: relative;
+          text-align: center;
+          margin-top: 50px;
+        }
+        .arrow-img {
+          max-width: 100%;
+        }
+        .match-date {
+          position: absolute;
+          top: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #fff;
+          padding: 5px 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          font-size: 14px;
+        }
+        .user-card {
+          background-color: #f8f9fa; /* Light gray background */
+          border: 1px solid #ddd;
+          padding: 15px;
+          align-self: center;
+        }
+        .btn-export {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+        .btn-export:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+      </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+            BMM   -   Bier mit Mir
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" >Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Bier Buddy List</a>
+                <a href="Import-Users.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Import Bier folks</a>
+                <a href="meeting-scheduler.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Run Scheduler</a>
+                <a href="meeting-details.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Meeting Details</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h2>Edit User</h2>
+                <form id="edit-user-form">
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" id="firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" disabled="true" class="form-control" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary cancel-button">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    
+    <script src="js/scheduler.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+         $(document).ready(async function() {
+            const userId = localStorage.getItem('editUserId');
+           
+            const response = await fetch(`${BASE_API_URL}/users/${userId}`);
+            let user = await response.json();
+
+            if (user) {
+                $('#firstname').val(user.firstName);
+                $('#lastname').val(user.lastName);
+                $('#username').val(user.userName);
+                $('#email').val(user.email);
+                $('#password').val(user.password);
+            }
+
+            $('#edit-user-form').on('submit',async function(event) {
+                event.preventDefault();
+                
+                const firstName = $('#firstname').val();
+                const lastName = $('#lastname').val();
+                const userName =  $('#username').val();
+                const email = $('#email').val();
+                const password = $('#password').val();
+
+                let updatedUser = { firstName, lastName, userName, email };
+                if (password) {
+                    updatedUser.password = CryptoJS.SHA256(password).toString();
+                }
+
+                try {
+                    const response = await fetch(`${BASE_API_URL}/users/${user.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatedUser)
+                    });
+
+                    if (response.ok) {
+                        const {start_date,frequency}=await getMeetingCalenderDetails();
+                        await generateSchedule(start_date,frequency);
+                        window.location.href = 'index.html';
+                        alert('User updated successfully!');
+                    } else {
+                        alert('Failed to update user.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating the profile.');
+                }
+               
+            });
+
+             // Handle cancel admin button click
+             $('.cancel-button').on('click', function() {
+                window.location.href = 'index.html';// back to user list page
+            });
+
+        });
+    </script>
+</body>
+</html>

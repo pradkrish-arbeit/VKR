@@ -1,25 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VKR-Virtual Kaffee Round</title>
+    <title>BMM - Bier mit Mir</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .match-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow-container {
+            position: relative;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .arrow-img {
+            max-width: 100%;
+        }
+
+        .match-date {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .user-card {
+            background-color: #f8f9fa;
+            /* Light gray background */
+            border: 1px solid #ddd;
+            padding: 15px;
+            align-self: center;
+        }
+
+        .btn-export {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-export:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-           VKR - Virtual Kaffee Round
+            <img src="images/logo.png" width="80" height="40" class="d-inline-block align-top" alt="Logo">
+            BMM - Bier mit Mir
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home |</a>
+                    <a class="nav-link" href="home.html">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -37,8 +91,18 @@
         <!-- Sidebar -->
         <div class="bg-dark border-right" id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-                <a href="list-users.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">List Users</a>
-                <a href="send-mail.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Send Email</a>
+                <a href="index.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Bier
+                    Buddy List</a>
+                <a href="Import-Users.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Import
+                    Bier folks</a>
+                <a href="meeting-scheduler.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Run
+                    Scheduler</a>
+                <a href="meeting-details.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Meeting
+                    Details</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -47,9 +111,13 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row border-bottom mb-4 pb-4">
-                    <div class="col-6"><h2>Welcome to Virtual Kaffee Round App</h2></div>
+                    <div class="col-6">
+                        <h2>User List </h2>
+                    </div>
                     <div class="col-6 text-right">
-                        <button id="add-product-form" class="btn btn-success btn-sm mr-2">Add User</button>
+                        <button id="add-product-form" class="btn btn-export mr-2 add-user">Add User</button>
+                        <button id="export-btn" class="btn btn-export export-button"><i class="fas fa-file-excel"></i>
+                            Export to Excel</button>
                     </div>
                 </div>
                 <div id="user-list" class="mt-4"></div>
@@ -57,34 +125,44 @@
         </div>
         <!-- /#page-content-wrapper -->
     </div>
-    
- 
+
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/scheduler.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+            //  document.getElementById("admin-button").style.backgroundColor='darkmagenta';
+
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            const isAdmin = localStorage.getItem('isAdmin');
+
 
             // Load users from local storage and display them
             fetch(`${BASE_API_URL}/users`)
-            .then(response => response.json())
-            .then(data => {
+                .then(response => response.json())
+                .then(data => {
 
-                const userList = $("#user-list");
+                    const userList = $("#user-list");
+                    data = data.filter(user => user.id !== 'efd8');
 
-                data.forEach((user, index) => {
-                    const userRow = $(`
-                        <div class="product-row row border-bottom mb-4 pb-4"  data-index="${index}">
-                            <div class="product-image col-1"><img src="images/avator.png" alt="${user.firstName}" class="img-fluid"></div>
-                            <div class="product-details col-4">
-                                <p><strong>Name:</strong> ${user.firstName +' '+user.lastName}</p>
-                                <p><strong>Email:</strong>${user.email}</p>
-                                <p><strong>Phone Number:</strong>+91 7067864312</p>
+                    data.forEach((user, index) => {
+                        const userRow = $(`
+                        <div class="user-row row border-bottom mb-4 pb-4"  data-index="${user.id}">
+                            <div class="product-image col-1"><img src="images/avator.png" alt="${user.firstName}" class="img-fluid rounded-circle"></div>
+                            <div class="product-details col-4 user-card">
+                                <p><strong>Name:</strong> ${user.firstName + ' ' + user.lastName}</p>
+                                <!--p><strong>Email:</strong>${user.email}</p>
+                                <p><strong>Phone Number:</strong>+91 7067864312</p-->
                             </div>
-                            <div class="product-actions col-7 text-right">
+                            <div class="product-actions col-7 text-right text-mid">
                                 <button class="btn btn-warning btn-sm mr-2 send-email">Send Email</button>
                                 ${user.isAdmin ? '' : '<button class="btn btn-warning btn-sm mr-2 make-admin">Make Admin</button>'}
                                 <button class="btn btn-primary btn-sm edit-user">Edit</button>
@@ -92,22 +170,114 @@
                             </div>
                         </div>
                     `);
-                    userList.append(userRow);
+                        userList.append(userRow);
+                    });
+
+
+                    // Handle delete user button click
+                    $('.delete-user').on('click', async function () {
+                        const userRow = $(this).closest('.user-row');
+                        const id = userRow.data('index');
+
+                        try {
+                            const response = await fetch(`${BASE_API_URL}/users/${id}`, {
+                                method: 'DELETE',
+                            });
+
+                            if (response.ok) {
+                                const { start_date, frequency } = await getMeetingCalenderDetails();
+                                await generateSchedule(start_date, frequency);
+                                alert('User Deleted successfully!');
+                                location.reload(); // Reload the page to show the updated status
+                            } else {
+                                alert('Failed to Delete User.');
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                            alert('An error occurred while updating the profile.');
+                        }
+
+
+                    });
+
+                    // Handle edit user button click
+                    $('.edit-user').on('click', function () {
+                        const userRow = $(this).closest('.user-row');
+                        const id = userRow.data('index');
+                        localStorage.setItem('editUserId', id);
+                        window.location.href = 'edit-user.html';
+                    });
+
+
                 });
 
+            // Handle edit user button click
+            $('.add-user').on('click', function () {
+                window.location.href = 'add-user.html';
             });
-            
+
+            // Export to Excel function
+            $('.export-button').on('click', async function () {
+                debugger;
+                const response = await fetch(`${BASE_API_URL}/users`);
+                const users = await response.json();
+
+                // Exclude "Password" and "isAdmin" columns
+                const filteredUsers = users.map(({ password, isAdmin, id, ...user }) => user);
+
+                const ws = XLSX.utils.json_to_sheet(filteredUsers);
+                const wb = XLSX.utils.book_new();
+
+                // Apply styles to the header
+                const headerCellStyle = {
+                    font: {  name: "Courier",bold: true, color: { rgb: "FFFFFF" }, sz: 14 },
+                    fill: { fgColor: { rgb: "4CAF50" } },
+                    alignment: { horizontal: "center", vertical: "center" }
+                };
+
+                const header = ["User Name", "First Name", "Last Name", "Email"];
+                header.forEach((h, i) => {
+                    const cellRef = XLSX.utils.encode_cell({ r: 0, c: i });
+                    ws[cellRef].s = headerCellStyle;
+                });
+
+                // Set column widths
+                ws['!cols'] = [
+                    { wch: 20 }, // Width for User Name column
+                    { wch: 20 }, // Width for First Name column
+                    { wch: 20 },  // Width for Last Namer column
+                    { wch: 20 } // Width for Email column
+                ];
+
+                XLSX.utils.book_append_sheet(wb, ws, "Users");
+                XLSX.writeFile(wb, "Bier_Folks_List.xlsx");
+
+            });
+
+
+            // Function to handle "Send Email" button click
+            $('.send-email').on('click', function () {
+                debugger;
+                const userEmail = $(this).data('email');
+                const message = prompt('Enter your message:');
+                if (message !== null) {
+                    alert(`Email sent to ${userEmail} with message: ${message}`);
+                }
+            });
+
+
 
             // Handle make admin button click
-            $('.make-admin').on('click', function() {
-                const userRow = $(this).closest('.product-row');
+            $('.make-admin').on('click', function () {
+                const userRow = $(this).closest('.user-row');
                 const index = userRow.data('index');
-                users[index].isAdmin = true;
-                localStorage.setItem('users', JSON.stringify(users));
+                //users[index].isAdmin = true;
+                //localStorage.setItem('users', JSON.stringify(users));
                 location.reload(); // Reload the page to show the updated status
             });
 
         });
     </script>
 </body>
+
 </html>

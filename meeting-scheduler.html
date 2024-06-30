@@ -11,8 +11,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-           VKR - Virtual Kaffee Round
-        </a>
+          BMM - Bier mit Mir        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,40 +32,66 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h3>Meeting Scheduler</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="meeting-scheduler-form">
-                            <div class="form-group">
-                                <label for="frequency">Frequency of Call:</label>
-                                <select type="select" class="form-control" id="frequency" required>
-                                    <option value="daily">daily</option>
-                                    <option value="once_a_week">Once A Week</option>
-                                    <option value="twice_a_week">Twice A Week</option>
-                                </select>
+    <div class="d-flex" id="wrapper">
+        
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Bier Buddy List</a>
+                <a href="Import-Users.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Import Bier Folks</a>
+                <a href="meeting-scheduler.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Scheduler Algorithm</a>
+                <a href="meeting-details.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Meeting Details</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
+          <!-- Page Content -->
+          <div id="page-content-wrapper">
+            <div class="container-fluid mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>Meeting Scheduler</h3>
                             </div>
-                            <div class="form-group">
-                                <label for="start_date">Start Date:</label>
-                                <input type="date" class="form-control" id="start_date" required>
+                            <div class="card-body">
+                                <form id="meeting-scheduler-form">
+                                    <div class="form-group">
+                                        <label for="frequency">Frequency of Call:</label>
+                                        <select type="select" class="form-control" id="frequency" required>
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="start_date">Start Date:</label>
+                                        <input type="date" onclick="this.showPicker();" class="form-control" id="start_date" required>
+                                    </div>
+                                    <!--div class="form-group">
+                                        <label for="end_date">End Date:</label>
+                                        <input type="date" onclick="this.showPicker();" class="form-control" id="end_date" required>
+                                    </div-->
+                                    <button type="submit" class="btn btn-primary btn-block">Run Scheduler</button>
+                                </form>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Run Scheduler</button>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a href="meeting-details.html">CLick here to check existing Scheduled meeting Details</a>
+                            <div class="card-footer text-center">
+                                <a href="meeting-details.html">CLick here to check existing Scheduled meeting Details</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
+
     </div>
+
+
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/scheduler.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

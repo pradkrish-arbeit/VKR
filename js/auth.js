@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const adminButton = document.createElement('li');
     adminButton.classList.add('nav-item');
-    adminButton.innerHTML = `<button id="admin-button" class="btn btn-link nav-link">Dashboard |</button>`;
+    adminButton.innerHTML = `<button id="admin-button" class="btn btn-link nav-link">Admin Dashboard</button>`;
 
     const ScheduleMeetingMenu = document.createElement('li');
     ScheduleMeetingMenu.classList.add('nav-item');
@@ -25,19 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
     MeetingDetailsMenu.innerHTML = `<button id="meeting-details-button" class="btn btn-link nav-link">Meeting Details |</button>`;
     // If user is authenticated
   
-    if (isAuthenticated) {
+    if (isAuthenticated == "true") {
 
         //Add Additional Menu
 
         //Add Admin Menu
-        if(isAdmin){
-            navbar.appendChild(ScheduleMeetingMenu);
-            navbar.appendChild(MeetingDetailsMenu);
+        if(isAdmin == "true"){
+          //  navbar.appendChild(ScheduleMeetingMenu);
+          //  navbar.appendChild(MeetingDetailsMenu);
             navbar.appendChild(adminButton);
         }
         // Admin functionality
         adminButton.addEventListener('click', function() {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'index.html';
         });
 
          // Admin functionality
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
        
         const welcomeMessage = document.createElement('li');
         welcomeMessage.classList.add('nav-item');
-        welcomeMessage.innerHTML = `<a class="nav-link">Welcome, ${user.firstName} ${user.lastName}</a>`;
+        welcomeMessage.innerHTML = `<a class="nav-link">| Welcome, ${user.firstName} ${user.lastName} |</a> `;
         
         // Remove login and register links
         document.querySelector('a[href="login.html"]').parentElement.remove();
@@ -69,9 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
          // Logout functionality
          logoutButton.addEventListener('click', function() {
             localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('isAdmin');
+            localStorage.removeItem('loggedInUser');
             window.location.href = 'login.html';
         });
-        
+
        
     } else {
         // Redirect to login if not on login page
@@ -79,5 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
         }
     }
+
     
 });

@@ -13,7 +13,7 @@ document.getElementById('register-form').addEventListener('submit', function (ev
   async function fetchAndPost() {
     try {
       // Retrieve user data from Json Server
-      const response = await fetch("${BASE_API_URL}/users");
+      const response = await fetch(`${BASE_API_URL}/users`);
       const users = await response.json();
 
       // Check if user already exists
@@ -41,7 +41,7 @@ document.getElementById('register-form').addEventListener('submit', function (ev
         localStorage.setItem('loggedInUser', JSON.stringify({ firstName, lastName, userName, email, password: hashedPassword, isAdmin: false }));
         console.log('Redirecting to index.html');
         // Redirect to home page
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
       }
     } catch (error) {
       console.error('Error:', error);

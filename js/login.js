@@ -10,16 +10,22 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     fetch(`${BASE_API_URL}/users`)
     .then(response => response.json())
     .then(data => {
-        const user = data.find(u => (u.email === username || u.userName === username) && u.password === hashedPassword);
+        const user = data.find(u => (u.userName === username) && u.password === hashedPassword);
+        debugger;
         if (user) {
-            alert('Login successful!');
-            if(user.isAdmin){
-                localStorage.setItem('isAdmin', 'true');
-            }
-            localStorage.setItem('isAuthenticated', 'true');
+            
+            localStorage.setItem('isAuthenticated', true);
             localStorage.setItem('loggedInUser', JSON.stringify(user));
             // Redirect to home page
-            window.location.href = 'home.html';
+            if(user.isAdmin){
+                localStorage.setItem('isAdmin', true);
+                window.location.href = 'profile.html';
+            }else{
+                localStorage.setItem('isAdmin', false);
+                window.location.href = 'profile.html';
+            }
+            alert('Login successful!');
+            
         } else {
             alert('Invalid email or password.');
         }

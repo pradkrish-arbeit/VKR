@@ -46,8 +46,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-           VKR - Virtual Kaffee Round
-        </a>
+          BMM - Bier mit Mir        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,11 +68,15 @@
     </nav>
 
     <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="bg-dark border-right" id="sidebar-wrapper">
+        
+        
+         <!-- Sidebar -->
+         <div class="bg-dark border-right" id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-                <a href="filter-meeting-by-date.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Filter By Date</a>
-                <a href="filter-meeting-by-person.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Filter By Person</a>
+                <a href="index.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Users List</a>
+                <a href="Import-Users.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Import Users</a>
+                <a href="meeting-scheduler.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Run Scheduler</a>
+                <a href="meeting-details.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Meeting Details</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -106,6 +109,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         $(document).ready(function() {
+
+           const isAuthenticated = localStorage.getItem('isAuthenticated');
+           const isAdmin = localStorage.getItem('isAdmin');
+
+            // If  not an admin, redirect to the home page
+            if(isAuthenticated && isAdmin !== 'true'){
+                window.location.href = 'home.html';
+            }
 
             function fetch_meeting_schedule(filter_person){
 

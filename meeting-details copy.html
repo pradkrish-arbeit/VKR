@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VKR-Virtual Kaffee Round</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Custom CSS -->
+    <style>
+        .match-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow-container {
+            position: relative;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .arrow-img {
+            max-width: 100%;
+        }
+
+        .match-date {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .user-card {
+            background-color: #f8f9fa;
+            /* Light gray background */
+            border: 1px solid #ddd;
+            padding: 15px;
+            align-self: center;
+        }
+
+        .no-records {
+            border: 2px dashed #ff4f5a;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffe4e6;
+        }
+
+        select {
+            width: 30%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .select-label {
+            margin-top: 6px;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+           BMM - Bier mit Mir        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home |</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a href="index.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Bier Buddy List</a>
+                <a href="Import-Users.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Import Bier Folks</a>
+                <a href="meeting-scheduler.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Scheduler Algorithm</a>
+                <a href="meeting-details.html"
+                    class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Meeting
+                    Details</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row border-bottom mb-4 pb-4 justify-content-center">
+                    <div class="input-group col-6">
+                        <label for="userSelect" class="select-label">Select a user:</label>
+                        <select id="userSelect" class="filter-name">
+                            <option value="">Filter By Name</option>
+                        </select>
+                        &nbsp;&nbsp;
+                        <input type="date" onclick="this.showPicker();" class="form-control filter-date"
+                            id="filter_date" placeholder="Search for meeting...">
+                        <div class="input-group-append">
+                            <!--button class="btn btn-outline-secondary filter-button" type="button" id="filter-button">Fiter By Date</button-->
+                            &nbsp; &nbsp;
+                            <button class="btn btn-outline-secondary reset-button" type="button"
+                                id="reset-button">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="user-list" class="mt-4"></div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // Load users from local storage and display them
+            /*$('#userSelect').select2({
+               placeholder: 'Select a user'
+           });*/
+
+            fetch(`${BASE_API_URL}/users`)
+                .then(response => response.json())
+                .then(data => {
+
+                    const userSelect = $('#userSelect');
+
+                    data = data.filter(user => user.id !== 'efd8');
+
+                    data.forEach(user => {
+                        const option = new Option(user.firstName, user.firstName, false, false);
+                        userSelect.append(option);
+                    });
+                    userSelect.trigger('change');
+
+                });
+
+
+            function fetch_meeting_schedule_By_Name(filter_person, filter_date) {
+
+                let apiUrl = `${BASE_API_URL}/individual_meetings_calender?_sort=seq,meeting_calender.meeting_date&_order=asc,asc`;
+
+                // Construct the query string based on the filter value
+                if (filter_person) {
+                    apiUrl += `&person.firstName=${encodeURIComponent(filter_person)}`;
+                }
+
+
+                // Load users from local storage and display them
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        const userList = $("#user-list");
+                        userList.empty();
+
+                        
+                        if (data.length == 0) {
+
+                            const displayMessage = `
+                            <div id="noRecords" class="no-records text-center" ">
+                            <p>No Record Found for the Given Date</p>
+                            </div>
+                            `
+                            userList.append(displayMessage);
+                            return;
+                            } 
+
+                        data.forEach((seq, index) => {
+                            seq.meeting_calender.forEach((contact) => {
+
+                                const userRow = $(`
+                                <div class="row match-container" data-index="${index}">
+                                        <!-- User 1 Details -->
+                                        <div class="col-md-3 user-card">
+                                            <p><strong>Name:</strong> ${seq.person.firstName + ' ' + seq.person.lastName}</p>
+                                            <!--p><strong>Email:</strong>${seq.person.email}</p>
+                                            <p><strong>Phone Number:</strong>+91 7067864312</p-->
+                                        </div>
+                                        <!-- User 1 Image -->
+                                        <div class="col-md-1 text-center user-card">
+                                        <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
+                                        </div>
+                                        <!-- Arrow Container -->
+                                        <div class="col-md-4 arrow-container">
+                                        <img src="images/side-arrow.png" alt="Arrow Image" class="arrow-img">
+                                        <p class="match-date">${contact.meeting_date}</p>
+                                        </div>
+                                        <!-- User 2 Image -->
+                                        <div class="col-md-1 text-center user-card">
+                                        <img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">
+                                        </div>
+                                        <!-- User 2 Details -->
+                                        <div class="col-md-3 user-card">
+                                        <p><strong>Name:</strong> ${contact.contact_person.firstName + ' ' + contact.contact_person.lastName}</p>
+                                            <!--p><strong>Email:</strong>${contact.contact_person.email}</p>
+                                            <p><strong>Phone Number:</strong>+91 7067864312</p-->
+                                        </div>
+                                    </div>
+                            `);
+debugger;
+                            if(filter_date){
+                                if(contact.meeting_date === new Date(filter_date).toDateString()){
+                                    userList.append(userRow);
+                                }
+                            }else{
+                                userList.append(userRow);
+                            }
+                             
+
+                            })
+
+                        });
+
+                    });
+
+            };
+
+
+            function fetch_meeting_schedule(filter_date, filter_person) {
+
+                let apiUrl = `${BASE_API_URL}/meetings_calender?_sort=seq&_order=asc`;
+
+                // Construct the query string based on the filter value
+                if (filter_date) {
+                    apiUrl += `&meeting_date=${encodeURIComponent(new Date(filter_date).toDateString())}`;
+                }
+
+                // Load users from Json Server and display them
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        const userList = $("#user-list");
+                        userList.empty();
+
+                        if (data.length == 0) {
+
+                            const displayMessage = `
+                         <div id="noRecords" class="no-records text-center" ">
+                            <p>No Record Found for the Given Date</p>
+                            </div>
+                    `
+                            userList.append(displayMessage);
+                        } else {
+
+                            data.forEach((seq, index) => {
+                                seq.teams.forEach((team) => {
+
+                                    const userRow = $(`
+                         <div class="row match-container" data-index="${index}">
+                                <!-- User 1 Details -->
+                                <div class="col-md-3 user-card">
+                                    <p><strong>Name:</strong> ${team[0].firstName + ' ' + team[0].lastName}</p>
+                                    <!--p><strong>Email:</strong>${team[0].email}</p>
+                                    <p><strong>Phone Number:</strong>+91 7067864312</p--->
+                                </div>
+                                <!-- User 1 Image -->
+                                <div class="col-md-1 text-center user-card">
+                                <img src="images/avator.png" alt="User 1 Image" class="img-fluid rounded-circle">
+                                </div>
+                                <!-- Arrow Container -->
+                                <div class="col-md-4 arrow-container">
+                                <img src="images/my-arrow.png" alt="Arrow Image" class="arrow-img">
+                                <p class="match-date">${seq.meeting_date}</p>
+                                </div>
+                                <!-- User 2 Image -->
+                                <div class="col-md-1 text-center user-card">
+                                ${team[1].firstName == 'No Call' ? '<img src="images/no-call.png" alt="User 2 Image" class="img-fluid rounded-circle">' : '<img src="images/avator.png" alt="User 2 Image" class="img-fluid rounded-circle">'}
+                                </div>
+                                <!-- User 2 Details -->
+                                <div class="col-md-3 user-card">
+                                   <p><strong>Name:</strong> ${team[1].firstName + ' ' + team[1].lastName}</p>
+                                    <!--p><strong>Email:</strong>${team[1].email}</p>
+                                    <p><strong>Phone Number:</strong>+91 7067864312</p-->
+                                </div>
+                            </div>
+                    `);
+debugger;
+                                    if (filter_person) {
+                                        if (team[0].firstName === filter_person || team[1].firstName === filter_person ) {
+                                            userList.append(userRow);
+                                        }
+                                    } else {
+                                        userList.append(userRow);
+                                    }
+
+                                })
+
+                            });
+
+                        }
+
+                    });
+
+            };
+
+            fetch_meeting_schedule();
+
+            // Handle make admin button click
+            $('.make-admin').on('click', function () {
+                const userRow = $(this).closest('.product-row');
+                const index = userRow.data('index');
+                users[index].isAdmin = true;
+                localStorage.setItem('users', JSON.stringify(users));
+                location.reload(); // Reload the page to show the updated status
+            });
+
+            // Handle make admin button click
+            $('.filter-date').on('change', function () {
+                const filter_date = document.getElementById('filter_date').value;
+                const userSelect = document.getElementById('userSelect').value;
+                if (userSelect) {
+                    fetch_meeting_schedule(filter_date, userSelect);
+                } else {
+                    fetch_meeting_schedule(filter_date);
+                }
+
+            });
+
+            // Handle make admin button click
+            $('.filter-name').on('change', function () {
+                const filter_date = document.getElementById('filter_date').value;
+                const userSelect = document.getElementById('userSelect').value;
+                if (filter_date) {
+                    fetch_meeting_schedule_By_Name(userSelect, filter_date);
+                } else {
+                    fetch_meeting_schedule_By_Name(userSelect);
+                }
+
+            });
+
+            // Handle make admin button click
+            $('.reset-button').on('click', function () {
+                document.getElementById('filter_date').value = '';
+                document.getElementById('userSelect').value = '';
+                fetch_meeting_schedule();
+            });
+
+        });
+    </script>
+</body>
+
+</html>

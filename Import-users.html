@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VKR-Virtual Kaffee Round</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+        }
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .custom-file-input {
+            cursor: pointer;
+        }
+        .custom-file-label::after {
+            content: "Browse";
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+          BMM - Bier mit Mir        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home |</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex" id="wrapper">
+        
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Bier Buddy List</a>
+                <a href="Import-Users.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary black-bg-color">Import Bier Folks</a>
+                <a href="meeting-scheduler.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Scheduler Algorithm</a>
+                <a href="meeting-details.html" class="list-group-item list-group-item-action bg-dark text-white border-bottom border-secondary">Meeting Details</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+          <!-- Page Content -->
+          <div id="page-content-wrapper">
+            <div class="container-fluid mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>Import Excel Sheet Utility</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="container mt-5">
+                                    <h2 class="text-center mb-4">Import Bier Folks</h2>
+                                    <input type="file" id="file-input" class="form-control mb-3" accept=".xlsx, .xls">
+                                    <button id="import-btn" class="btn btn-import mb-4"><i class="fas fa-file-import"></i> Import from Excel</button>
+                                    <div id="status" class="text-center"></div>
+                                </div>
+
+                                <!--form id="upload-form">
+                                    <div class="form-group">
+                                        <label for="user-file">Upload Excel File</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="user-file" accept=".xlsx, .xls">
+                                            <label class="custom-file-label" for="user-file">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Upload</button>
+                                </form-->
+
+                                <!--form id="meeting-scheduler-form">
+                                    <div class="form-group">
+                                        <label for="frequency">Frequency of Call:</label>
+                                        <select type="select" class="form-control" id="frequency" required>
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="start_date">Start Date:</label>
+                                        <input type="date" onclick="this.showPicker();" class="form-control" id="start_date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="end_date">End Date:</label>
+                                        <input type="date" onclick="this.showPicker();" class="form-control" id="end_date" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Upload</button>
+                                </form-->
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="admin-dashboard.html">CLick here to check existing User List Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+    </div>
+
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="js/scheduler.js"></script>
+    <script>
+        document.getElementById('import-btn').addEventListener('click', async function() {
+            const fileInput = document.getElementById('file-input');
+            if (fileInput.files.length === 0) {
+                alert('Please select a file.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = async function(event) {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const json = XLSX.utils.sheet_to_json(worksheet);
+
+                const response = await fetch(`${BASE_API_URL}/import-bier-folks`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(json)
+                });
+
+                if (response.ok) {
+                    document.getElementById('status').innerText = 'Import successful!';
+                } else {
+                    document.getElementById('status').innerText = 'Import failed.';
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+</body>
+</html>
